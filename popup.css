@@ -1,0 +1,42 @@
+body {
+  width: 340px;
+  margin: 12px;
+  font: 13px/1.4 system-ui, sans-serif;
+}
+
+h1 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.row {
+  display: block;
+  margin: 6px 0;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 4px 0;
+  font: 12px ui-monospace, monospace;
+}
+
+.hint {
+  margin: 0 0 10px;
+  text-align: right;
+}
+
+.error {
+  float: left;
+  color: #c00;
+}
+
+#stats {
+  color: #666;
+  margin: 0 0 8px;
+}
+
+button {
+  margin-top: 6px;
+  padding: 4px 16px;
+}

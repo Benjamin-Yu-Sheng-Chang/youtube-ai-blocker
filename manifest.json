@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube AI Blocker",
+  "version": "0.1.0",
+  "description": "Hides AI-generated videos and Shorts on YouTube using YouTube's own AI label, a title filter and a channel blocklist.",
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://www.youtube.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/*"
+      ],
+      "js": [
+        "detect.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "YouTube AI Blocker",
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon.svg",
+    "default_area": "navbar"
+  },
+  "options_ui": {
+    "page": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "youtube-ai-blocker@local",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  }
+}

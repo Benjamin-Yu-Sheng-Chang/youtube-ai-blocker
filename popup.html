@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <h1>YouTube AI Blocker</h1>
+    <p id="stats">&nbsp;</p>
+
+    <label class="row"><input type="checkbox" id="enabled" /> Enabled</label>
+    <div class="row">
+      Matches:
+      <label><input type="radio" name="mode" value="hide" /> Hide</label>
+      <label><input type="radio" name="mode" value="flag" /> Flag only</label>
+    </div>
+    <label class="row"><input type="checkbox" id="useLabel" /> Match videos YouTube labels "Made with AI"</label>
+    <label class="row"><input type="checkbox" id="useTitle" /> Match videos whose title matches</label>
+
+    <textarea id="titleRegex" rows="4" spellcheck="false"></textarea>
+    <p class="hint"><span id="regexError" class="error"></span> <a href="#" id="resetRegex">Reset to default</a></p>
+
+    <label for="channels">Blocked channels (one per line, <code>@handle</code> or channel name)</label>
+    <textarea id="channels" rows="6" spellcheck="false" placeholder="@SomeAiChannel"></textarea>
+
+    <button id="save">Save</button>
+    <span id="saved"></span>
+
+    <script src="detect.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

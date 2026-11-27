@@ -1,0 +1,19 @@
+{
+  "name": "youtube-ai-blocker",
+  "version": "1.0.0",
+  "description": "Firefox extension that hides AI-generated YouTube videos",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "test:e2e": "node e2e/youtube.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.65.1"
+  },
+  "private": true
+}

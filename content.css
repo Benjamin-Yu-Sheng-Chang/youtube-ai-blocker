@@ -1,0 +1,102 @@
+html[data-aib-mode="hide"] [data-aib-match] {
+  display: none !important;
+}
+
+/* Drop a Shorts shelf entirely once every item in it is hidden. */
+html[data-aib-mode="hide"]
+  :is(grid-shelf-view-model, ytd-rich-shelf-renderer, ytd-reel-shelf-renderer):has([data-aib-match]):not(
+    :has(:is(.ytGridShelfViewModelGridShelfItem, ytd-rich-item-renderer, ytd-reel-item-renderer):not([data-aib-match]))
+  ) {
+  display: none !important;
+}
+
+/* Flag mode: keep matches visible, outline them and say why. */
+html[data-aib-mode="flag"] [data-aib-match] {
+  --aib-color: #e53935;
+  position: relative;
+  outline: 1px solid var(--aib-color);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+html[data-aib-mode="flag"] [data-aib-match]::before {
+  content: attr(data-aib-why);
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 100;
+  max-width: calc(100% - 12px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--aib-color);
+  color: #fff;
+  font: 500 11px/1.5 Roboto, Arial, sans-serif;
+  pointer-events: none;
+}
+
+html[data-aib-mode="flag"] [data-aib-match="label"] {
+  --aib-color: #8e24aa;
+}
+
+html[data-aib-mode="flag"] [data-aib-match="channel"] {
+  --aib-color: #f57c00;
+}
+
+#aib-flag {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  padding: 6px 14px;
+  border-radius: 16px;
+  background: #e53935;
+  color: #fff;
+  font: 600 14px/1.4 Roboto, Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+#aib-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  color: #fff;
+  font: 16px/1.5 Roboto, Arial, sans-serif;
+}
+
+#aib-overlay .aib-box {
+  max-width: 420px;
+  text-align: center;
+}
+
+#aib-overlay h2 {
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+#aib-overlay button {
+  margin: 16px 6px 0;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 18px;
+  font: inherit;
+  cursor: pointer;
+}
+
+#aib-overlay .aib-back {
+  background: #fff;
+  color: #000;
+}
+
+#aib-overlay .aib-watch {
+  background: #333;
+  color: #fff;
+}
