@@ -4,9 +4,15 @@ Hides or flags AI-generated videos and Shorts on YouTube.
 
 ## Install
 
+Clone just the extension (shallow, latest commit only — the smallest copy):
+
+```sh
+git clone --depth 1 https://github.com/Benjamin-Yu-Sheng-Chang/youtube-ai-blocker.git
+```
+
 1. Open `about:debugging#/runtime/this-firefox` in Firefox.
 2. Click **Load Temporary Add-on…**
-3. Pick `manifest.json` in this folder.
+3. Pick `manifest.json` in the cloned folder.
 
 Temporary add-ons are removed when Firefox restarts, so repeat after a restart.
 
@@ -30,15 +36,23 @@ If an AI video gets blocked when you open it, click **Watch anyway** to watch it
 
 ## For testing
 
-Unit tests need Node.js only:
+Tests live on the `test` branch. Clone the whole repo and check it out:
+
+```sh
+git clone https://github.com/Benjamin-Yu-Sheng-Chang/youtube-ai-blocker.git
+cd youtube-ai-blocker
+git checkout test
+npm install
+```
+
+Unit tests (Node.js only, no install needed):
 
 ```sh
 node --test test/
 ```
 
-The end-to-end test needs npm (it installs Playwright):
+End-to-end test (needs Playwright from `npm install`):
 
 ```sh
-npm install
 npm run test:e2e
 ```
