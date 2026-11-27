@@ -1,50 +1,35 @@
 # YouTube AI Blocker (Firefox)
 
-Hides AI-generated videos and Shorts on youtube.com.
+Hides or flags AI-generated videos and Shorts on YouTube.
 
-A video is treated as AI when any enabled check matches:
+## Install
 
-1. **YouTube's AI label.** The video's "How this was made" panel says "Made with AI" or "altered or fully generated". The extension looks this up per video with YouTube's own `youtubei/v1/next` endpoint, only for cards near the screen, and caches the answer. Auto-dubbed and "Captured with a camera" videos use the same panel and are ignored.
-2. **Title filter.** A regex on the title (`AI generated`, `#aiart`, `Veo 3`, ...). You can edit it in the popup.
-3. **Channel blocklist.** `@handle` or channel name, one per line in the popup.
+1. **Install npm.** Download Node.js (npm comes with it) from https://nodejs.org.
+2. **Install the project.** In this folder, run:
+   ```sh
+   npm install
+   ```
+3. **Add it to Firefox as a temporary add-on.**
+   1. Open `about:debugging#/runtime/this-firefox` in Firefox.
+   2. Click **Load Temporary Add-on…**
+   3. Pick `manifest.json` in this folder.
 
-What happens to a match:
+Temporary add-ons are removed when Firefox restarts, so repeat step 3 after a restart.
 
-- Home, subscriptions, search, sidebar and Shorts shelf cards are hidden.
-- An AI video opened directly on the watch page is paused behind an overlay with "Go back" / "Watch anyway".
-- An AI Short in the Shorts player is skipped to the next one.
+## Use
 
-**Flag mode** (popup → Matches: Flag only) keeps everything visible so you can judge the checks:
+Open YouTube. AI videos are hidden from Home, Search, the sidebar and Shorts.
 
-- Matched cards get an outline and a badge saying why: purple = YouTube label, red = title filter (shows the matched words), orange = channel.
-- The watch page and Shorts get a banner instead of the overlay or the skip.
+Click the extension's button in the toolbar (or in the Extensions menu) to change settings:
 
-All requests go to youtube.com only. No data is collected.
+- **Matches: Hide / Flag only.** *Hide* removes AI videos, pauses AI videos you open directly, and skips AI Shorts. *Flag only* keeps everything visible and marks matches with a badge saying why:
+  - purple: YouTube labels it "Made with AI"
+  - red: the title matched the title filter (shows the matched words)
+  - orange: the channel is on your blocklist
+- **YouTube label.** Turn matching on YouTube's own "Made with AI" label on or off.
+- **Title filter.** Turn the title filter on or off, and edit its pattern. **Reset to default** restores the original pattern.
+- **Blocked channels.** Add one channel per line, as `@handle` or channel name.
 
-## Install (development)
+Click **Save** after editing the title filter or channel list. The popup also shows how many videos were hidden or flagged on the current page.
 
-1. Open `about:debugging#/runtime/this-firefox` in Firefox.
-2. Click **Load Temporary Add-on...** and pick `manifest.json` in this folder.
-3. Open YouTube. Click the toolbar icon for settings and the hidden count.
-
-Temporary add-ons are removed when Firefox restarts.
-
-## Test
-
-```sh
-npm install
-npm test             # detection unit tests
-npm run test:e2e     # real youtube.com in Playwright's Firefox (HEADED=1 to watch)
-```
-
-Playwright can't install Firefox add-ons, so the e2e test injects `detect.js`, `content.js` and `content.css` into each page with a fake `browser` storage API. It covers search hiding (label, title, blocklist), a normal search with nothing hidden, the watch-page overlay, a non-AI auto-dubbed video, skipping a Short, and flag mode (writes `e2e/flag-mode.png`). It doesn't cover the popup or the real extension install, so load it via `about:debugging` for that.
-
-Known gap: Shorts cards in search results show no channel, so the channel blocklist can't hide them there (the AI label and title filter still do).
-
-## Files
-
-- `manifest.json`: MV3 manifest
-- `detect.js`: pure detection helpers (label parsing, title regex, blocklist), shared with the tests
-- `content.js`: finds cards, runs checks, hides cards, handles the watch page and Shorts
-- `popup.*`: settings UI
-- `test/`: unit tests, `e2e/`: Playwright test
+If an AI video gets blocked when you open it, click **Watch anyway** to watch it.
