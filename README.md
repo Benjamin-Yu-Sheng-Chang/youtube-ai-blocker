@@ -4,17 +4,11 @@ Hides or flags AI-generated videos and Shorts on YouTube.
 
 ## Install
 
-1. **Install npm.** Download Node.js (npm comes with it) from https://nodejs.org.
-2. **Install the project.** In this folder, run:
-   ```sh
-   npm install
-   ```
-3. **Add it to Firefox as a temporary add-on.**
-   1. Open `about:debugging#/runtime/this-firefox` in Firefox.
-   2. Click **Load Temporary Add-on…**
-   3. Pick `manifest.json` in this folder.
+1. Open `about:debugging#/runtime/this-firefox` in Firefox.
+2. Click **Load Temporary Add-on…**
+3. Pick `manifest.json` in this folder.
 
-Temporary add-ons are removed when Firefox restarts, so repeat step 3 after a restart.
+Temporary add-ons are removed when Firefox restarts, so repeat after a restart.
 
 ## Use
 
@@ -33,3 +27,18 @@ Click the extension's button in the toolbar (or in the Extensions menu) to chang
 Click **Save** after editing the title filter or channel list. The popup also shows how many videos were hidden or flagged on the current page.
 
 If an AI video gets blocked when you open it, click **Watch anyway** to watch it.
+
+## For testing
+
+Unit tests need Node.js only:
+
+```sh
+node --test test/
+```
+
+The end-to-end test needs npm (it installs Playwright):
+
+```sh
+npm install
+npm run test:e2e
+```
